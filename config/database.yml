@@ -81,6 +81,8 @@ test:
 #
 production:
   <<: *default
-  database: mydb
-  username: postgres
-  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
+  host: ec2-54-159-22-90.compute-1.amazonaws.com
+  database: dds2ii6nr6jp6a
+  username: ocrdhkgseygvaa
+  password: 821194152568eca4f451026ae3c2f6f61db39b77f356d4b66b44d632e0ff0cd1
+  port: 5432
