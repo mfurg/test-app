@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @items = Item.all
+    @items = searched_items(params[:search])
     render json: @items
   end
 
@@ -36,7 +36,15 @@ class ItemsController < ApplicationController
   end
 
   private
-    def item_params
-      params.permit(:name, :description, :price)
+  def searched_items(query)
+    res = if query.present?
+      Item.search(query)
+    else
+      Item.all
     end
+  end
+
+  def item_params
+    params.permit(:name, :description, :price)
+  end
 end
