@@ -2,8 +2,15 @@ class ItemsController < ApplicationController
   #before_action :authenticate_user!
 
   def index
+    even = []
     @items = searched_items(params[:search])
-    render json: @items
+    @items.each_index{|index|
+      case index
+      when params[:begin] .. params[:end]
+        even << items[index]
+      end
+    }
+    render json: even
   end
 
   def show
@@ -45,6 +52,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.permit(:name, :description, :price)
+    params.permit(:name, :description, :price, :begin, :end)
   end
 end
