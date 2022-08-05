@@ -3,7 +3,8 @@ class ItemsController < ApplicationController
 
   def index
     @items = searched_items(params[:search])
-    render json: { items: @items, count: @items.length }
+    @count = Item.count
+    render json: { items: @items, count: @count }
   end
 
   def show
