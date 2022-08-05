@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = searched_items(params[:search])
-    render json: { items: @items[params[:offset].to_i, params[:limit].to_i], count: @items.length }
+    render json: { items: @items, count: @items.length }
   end
 
   def show
@@ -38,9 +38,9 @@ class ItemsController < ApplicationController
   private
   def searched_items(query)
     res = if query.present?
-      Item.search(query)
+      Item.search(query).limit(params[:limit].to_i).offset(params[:offset].to_i)
     else
-      Item.all
+      Item.limit(params[:limit].to_i).offset(params[:offset].to_i)
     end
   end
 
